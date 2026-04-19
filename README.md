@@ -271,7 +271,7 @@ http://localhost:5173
 * Clean separation of concerns (components, services, utils)
 * Production-style structure
 
-# 📸 Screenshots
+# Screenshots
 
 ### Dashboard View
 <img width="1866" height="863" alt="image" src="https://github.com/user-attachments/assets/fa9eeca9-db64-45fd-a801-f60c7022a16a" />
@@ -288,7 +288,7 @@ http://localhost:5173
 
 ---
 
-## 🎯 Objective
+## Objective
 
 The objective of this module is to decode raw GPS data (NMEA sentences) into human-readable and usable information.
 
@@ -296,7 +296,7 @@ Unlike standard applications that consume structured APIs, this utility focuses 
 
 ---
 
-## 🧠 Problem Understanding
+## Problem Understanding
 
 GPS devices do not output clean JSON data. Instead, they transmit information in **NMEA (National Marine Electronics Association) sentence format**, which is:
 
@@ -319,7 +319,7 @@ To make this data useful, it must be:
 
 ---
 
-## ⚙️ Features Implemented
+## Features Implemented
 
 - Accept raw NMEA sentence input  
 - Support for:
@@ -333,12 +333,12 @@ To make this data useful, it must be:
   - Speed (if applicable)  
 - Convert coordinates into decimal format  
 - Display structured output  
-- 📍 Generate Google Maps link  
+- Generate Google Maps link  
 - Optional UI for interaction  
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 
@@ -361,7 +361,7 @@ nmea-decoder/
 
 ---
 
-## 🧠 Processing Flow
+## Processing Flow
 
 ```
 
@@ -383,7 +383,7 @@ Google Maps link generation
 
 ---
 
-## 🧠 Processing Logic (Detailed)
+## Processing Logic (Detailed)
 
 ### Step 1: Input Handling
 - Accept raw NMEA sentence from user
@@ -473,7 +473,7 @@ Example:
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - Python 3  
 - Custom parsing logic  
@@ -481,7 +481,7 @@ Example:
 
 ---
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 
@@ -513,7 +513,7 @@ npm run dev
 
 ---
 
-## ❌ Error Handling
+## Error Handling
 
 - Invalid sentence format detection  
 - Unsupported sentence types handled  
@@ -521,7 +521,7 @@ npm run dev
 
 ---
 
-## 🤖 AI Tools Used
+## AI Tools Used
 
 - ChatGPT:
   - Understanding NMEA format  
@@ -530,7 +530,7 @@ npm run dev
 
 ---
 
-## ✍️ Manual Improvements
+## Manual Improvements
 
 - Designed modular parser structure  
 - Implemented reusable conversion utilities  
@@ -540,26 +540,86 @@ npm run dev
 
 ---
 
-## 🧾 AI Prompts Used
-
-Examples:
-
-- “Explain NMEA sentence parsing with example”  
-- “Convert GPS coordinates to decimal format”  
-- “How to extract latitude and longitude from GPGGA”  
-- “Design modular parser in Python”  
-
----
-
-## 🚀 Key Highlights
+## Key Highlights
 
 - Works with real-world GPS data format  
 - Demonstrates low-level data parsing  
 - Converts encoded data into usable format  
 - Includes coordinate transformation logic  
-- Integrates with Google Maps  
+- Integrates with Google Maps
+
+## NMEA Decoder
+- Python 3 (standard library)
+
+## NMEA Decoder
+
+### Input & Output
+<img width="1863" height="853" alt="image" src="https://github.com/user-attachments/assets/3bba9f40-81cb-4cbe-a4ec-88989c69b437" />
+<img width="1408" height="862" alt="image" src="https://github.com/user-attachments/assets/24f1fc94-5ae5-4d1f-a299-bd0f5f9fa022" />
+<img width="1866" height="866" alt="image" src="https://github.com/user-attachments/assets/384fb414-78fc-4970-b3b6-0b34df29f556" />
+<img width="1869" height="860" alt="image" src="https://github.com/user-attachments/assets/207f7711-6f34-4f93-8724-bd487b4965a2" />
+
+## Example NMEA Inputs
+
+You can use the following sample NMEA sentences to test the decoder:
 
 ---
-```
+
+### GPGGA Example (GPS Fix Data)
+
+
+$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47
+
+
+This provides:
+- Latitude
+- Longitude
+- Number of satellites
+- Altitude
+
+---
+
+### GPRMC Example (Recommended Minimum Data)
+
+
+$GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A
+
+
+This provides:
+- Time
+- Status (valid/invalid)
+- Latitude & Longitude
+- Speed
+- Date
+
+---
+
+## Expected Output (Sample)
+
+
+Latitude: 48.1173 N
+Longitude: 11.5167 E
+Time: 12:35:19
+Satellites: 8
+
+
+---
+
+## Google Maps Link (Generated)
+
+
+https://maps.google.com/?q=48.1173,11.5167
+
+
+---
+
+These examples allow quick testing without needing real GPS devices.
+---
+
+# AI Chat Documentation
+
+The complete AI interaction history used during development is available here:
+
+https://drive.google.com/file/d/1C-yYfbE-irPCEIk15NuJnL-TzL9stE1_/view?usp=sharing
 
 ---
