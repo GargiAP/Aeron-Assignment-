@@ -1,32 +1,60 @@
-import { formatTime } from "../utils/formatters";
+import { UV_LABEL, WIND_DIR } from "../utils/formatters";
 
-export default function SunriseSunset({ sunrise, sunset }) {
+function Card({ label, value, sub, accent }) {
   return (
-    <div style={s.box}>
-      <div style={s.item}>
-        <span style={s.icon}>↑</span>
-        <span style={s.label}>Sunrise</span>
-        <span style={s.val}>{formatTime(sunrise)}</span>
-      </div>
-      <div style={s.divider} />
-      <div style={s.item}>
-        <span style={s.icon}>↓</span>
-        <span style={s.label}>Sunset</span>
-        <span style={s.val}>{formatTime(sunset)}</span>
-      </div>
+    <div style={{ ...s.card, ...(accent ? s.accent : {}) }}>
+      <p style={s.label}>{label}</p>
+      <p style={s.value}>{value}</p>
+      <p style={s.sub}>{sub}</p>
+    </div>
+  );
+}
+
+export default function MetricCards({ weather }) {
+  return (
+    <div style={s.grid}>
+      <Card accent
+        label="Temperature"
+        value={`${weather.temp}°C`}
+        sub={`Feels like ${weather.feels}°C`}
+      />
+      <Card
+        label="Humidity"
+        value={`${weather.humidity}%`}
+        sub="Relative humidity"
+      />
+      <Card
+        label="Wind"
+        value={`${weather.wind} km/h`}
+        sub={`Direction: ${WIND_DIR(weather.windDir)}`}
+      />
+      <Card
+        label="Precipitation"
+        value={`${weather.precip} mm`}
+        sub="Today total"
+      />
+      <Card
+        label="UV Index"
+        value={weather.uv}
+        sub={UV_LABEL(weather.uv)}
+      />
     </div>
   );
 }
 
 const s = {
-  box: {
-    display:"flex", alignItems:"center", gap:"16px",
-    background:"#1e293b", border:"1px solid rgba(255,255,255,0.06)",
-    borderRadius:"10px", padding:"10px 16px",
+  grid: {
+    display:"grid",
+    gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))",
+    gap:"12px", padding:"0 2rem 1.5rem",
   },
-  item:    { display:"flex", flexDirection:"column", alignItems:"center", gap:"2px" },
-  icon:    { fontSize:"14px", color:"#f59e0b" },
-  label:   { fontSize:"0.65rem", color:"#475569", textTransform:"uppercase", letterSpacing:"0.06em" },
-  val:     { fontSize:"0.88rem", fontWeight:"600", color:"#f1f5f9" },
-  divider: { width:"1px", height:"32px", background:"rgba(255,255,255,0.07)" },
+  card: {
+    background:"#1e293b",
+    border:"1px solid rgba(255,255,255,0.06)",
+    borderRadius:"12px", padding:"1rem 1.2rem",
+  },
+  accent: { borderTop:"2px solid #0ea5e9" },
+  label: { fontSize:"0.68rem", color:"#475569", textTransform:"uppercase", letterSpacing:"0.07em", marginBottom:"6px" },
+  value: { fontSize:"1.65rem", fontWeight:"600", color:"#f1f5f9", lineHeight:1 },
+  sub:   { fontSize:"0.74rem", color:"#334155", marginTop:"5px" },
 };
