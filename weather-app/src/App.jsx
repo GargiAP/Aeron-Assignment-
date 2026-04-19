@@ -56,7 +56,7 @@ export default function App() {
 
     try {
       // Step 1 — geocode
-      const geoRes  = await fetch(
+      const geoRes = await fetch(
         `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(target)}&count=1&language=en&format=json`
       );
       const geoData = await geoRes.json();
@@ -99,12 +99,19 @@ export default function App() {
       const cur   = wData.current;
       const daily = wData.daily;
 
-      const hourlyLabels = wData.hourly.time.map(t => t.split("T")[1].slice(0, 5));
-      const tempData     = hourlyLabels.map((time, i) => ({
-        time, value: wData.hourly.temperature_2m[i]
+      // slice to today's 24 hours only
+      const hourlyLabels = wData.hourly.time
+        .slice(0, 24)
+        .map(t => t.split("T")[1].slice(0, 5));
+
+      const tempData = hourlyLabels.map((time, i) => ({
+        time,
+        value: wData.hourly.temperature_2m[i],
       }));
-      const precipData   = hourlyLabels.map((time, i) => ({
-        time, value: wData.hourly.precipitation_probability[i]
+
+      const precipData = hourlyLabels.map((time, i) => ({
+        time,
+        value: wData.hourly.precipitation_probability[i],
       }));
 
       const forecast = daily.time.map((date, i) => ({
@@ -118,16 +125,16 @@ export default function App() {
 
       setWeather({
         city: name, country,
-        temp:      cur.temperature_2m,
-        feels:     cur.apparent_temperature,
-        humidity:  cur.relative_humidity_2m,
-        wind:      cur.wind_speed_10m,
-        windDir:   cur.wind_direction_10m,
-        precip:    cur.precipitation,
-        uv:        cur.uv_index,
-        code:      cur.weather_code,
-        sunrise:   daily.sunrise[0],
-        sunset:    daily.sunset[0],
+        temp:     cur.temperature_2m,
+        feels:    cur.apparent_temperature,
+        humidity: cur.relative_humidity_2m,
+        wind:     cur.wind_speed_10m,
+        windDir:  cur.wind_direction_10m,
+        precip:   cur.precipitation,
+        uv:       cur.uv_index,
+        code:     cur.weather_code,
+        sunrise:  daily.sunrise[0],
+        sunset:   daily.sunset[0],
         tempData, precipData, forecast,
       });
 
@@ -251,11 +258,17 @@ export default function App() {
             <div style={s.chartCard}>
               <p style={s.chartTitle}>Hourly Temperature (°C)</p>
               <ResponsiveContainer width="100%" height={180}>
-                <LineChart data={weather.tempData} margin={{top:5,right:10,left:-20,bottom:0}}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                  <XAxis dataKey="time" tick={{fill:"#475569",fontSize:10}} tickLine={false}
+                <LineChart data={weather.tempData}
+                  margin={{top:5,right:10,left:-20,bottom:0}}>
+                  <CartesianGrid strokeDasharray="3 3"
+                    stroke="rgba(255,255,255,0.05)" />
+                  <XAxis dataKey="time"
+                    tick={{fill:"#475569",fontSize:10}}
+                    tickLine={false}
                     interval={Math.floor(weather.tempData.length / 5)} />
-                  <YAxis tick={{fill:"#475569",fontSize:10}} tickLine={false} axisLine={false}
+                  <YAxis
+                    tick={{fill:"#475569",fontSize:10}}
+                    tickLine={false} axisLine={false}
                     tickFormatter={v => `${v}°`} />
                   <Tooltip
                     contentStyle={{background:"#0f172a",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"8px",fontSize:"12px"}}
@@ -263,8 +276,9 @@ export default function App() {
                     itemStyle={{color:"#38bdf8"}}
                     formatter={v => [`${v}°C`, "Temp"]}
                   />
-                  <Line type="monotone" dataKey="value" stroke="#0ea5e9"
-                    strokeWidth={2} dot={false} activeDot={{r:4,fill:"#0ea5e9"}} />
+                  <Line type="monotone" dataKey="value"
+                    stroke="#0ea5e9" strokeWidth={2}
+                    dot={false} activeDot={{r:4,fill:"#0ea5e9"}} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -272,12 +286,18 @@ export default function App() {
             <div style={s.chartCard}>
               <p style={s.chartTitle}>Precipitation Probability (%)</p>
               <ResponsiveContainer width="100%" height={180}>
-                <BarChart data={weather.precipData} margin={{top:5,right:10,left:-20,bottom:0}}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                  <XAxis dataKey="time" tick={{fill:"#475569",fontSize:10}} tickLine={false}
+                <BarChart data={weather.precipData}
+                  margin={{top:5,right:10,left:-20,bottom:0}}>
+                  <CartesianGrid strokeDasharray="3 3"
+                    stroke="rgba(255,255,255,0.05)" />
+                  <XAxis dataKey="time"
+                    tick={{fill:"#475569",fontSize:10}}
+                    tickLine={false}
                     interval={Math.floor(weather.precipData.length / 5)} />
-                  <YAxis domain={[0,100]} tick={{fill:"#475569",fontSize:10}} tickLine={false}
-                    axisLine={false} tickFormatter={v => `${v}%`} />
+                  <YAxis domain={[0,100]}
+                    tick={{fill:"#475569",fontSize:10}}
+                    tickLine={false} axisLine={false}
+                    tickFormatter={v => `${v}%`} />
                   <Tooltip
                     contentStyle={{background:"#0f172a",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"8px",fontSize:"12px"}}
                     labelStyle={{color:"#94a3b8"}}
@@ -454,7 +474,10 @@ const s = {
     gap: "2px",
   },
   sunIcon: { fontSize: "14px", color: "#f59e0b" },
-  sunLabel: { fontSize: "0.65rem", color: "#475569", textTransform: "uppercase", letterSpacing: "0.06em" },
+  sunLabel: {
+    fontSize: "0.65rem", color: "#475569",
+    textTransform: "uppercase", letterSpacing: "0.06em",
+  },
   sunVal: { fontSize: "0.88rem", fontWeight: "600", color: "#f1f5f9" },
   sunDivider: {
     width: "1px", height: "32px",
@@ -477,7 +500,10 @@ const s = {
     fontSize: "0.68rem", color: "#475569",
     textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "6px",
   },
-  cardValue: { fontSize: "1.65rem", fontWeight: "600", color: "#f1f5f9", lineHeight: 1 },
+  cardValue: {
+    fontSize: "1.65rem", fontWeight: "600",
+    color: "#f1f5f9", lineHeight: 1,
+  },
   cardSub: { fontSize: "0.74rem", color: "#334155", marginTop: "5px" },
   charts: {
     display: "grid",
@@ -495,9 +521,7 @@ const s = {
     fontSize: "0.68rem", fontWeight: "600", color: "#475569",
     textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "1rem",
   },
-  forecastSection: {
-    padding: "0 2rem 2rem",
-  },
+  forecastSection: { padding: "0 2rem 2rem" },
   forecastRow: {
     display: "grid",
     gridTemplateColumns: "repeat(7,1fr)",
@@ -534,7 +558,5 @@ const s = {
   },
   forecastMax: { fontSize: "0.9rem", fontWeight: "600", color: "#f1f5f9" },
   forecastMin: { fontSize: "0.78rem", color: "#475569" },
-  forecastPrecip: {
-    fontSize: "0.62rem", color: "#60a5fa", marginTop: "2px",
-  },
+  forecastPrecip: { fontSize: "0.62rem", color: "#60a5fa", marginTop: "2px" },
 };
