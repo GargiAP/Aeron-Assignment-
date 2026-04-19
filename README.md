@@ -605,7 +605,7 @@ Satellites: 8
 
 ---
 
-## Google Maps Link (Generated)
+### Google Maps Link (Generated)
 
 
 https://maps.google.com/?q=48.1173,11.5167
@@ -613,10 +613,10 @@ https://maps.google.com/?q=48.1173,11.5167
 
 ---
 
-These examples allow quick testing without needing real GPS devices.
+##These examples allow quick testing without needing real GPS devices.
 ---
 
-# AI Chat Documentation
+### AI Chat Documentation
 
 The complete AI interaction history used during development is available here:
 
