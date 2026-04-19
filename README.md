@@ -277,43 +277,57 @@ Examples:
 
 ---
 
-```
-
-
-
 # 📡 NMEA Decoder
-
-## 🎯 Objective
-
-To decode raw GPS data (NMEA sentences) into human-readable information.
 
 ---
 
-## 🧠 What is NMEA?
+## 🎯 Objective
 
-NMEA (National Marine Electronics Association) is a standard format used by GPS devices to transmit location data.
+The objective of this module is to decode raw GPS data (NMEA sentences) into human-readable and usable information.
+
+Unlike standard applications that consume structured APIs, this utility focuses on **processing low-level device data**, similar to what is used in avionics and navigation systems.
+
+---
+
+## 🧠 Problem Understanding
+
+GPS devices do not output clean JSON data. Instead, they transmit information in **NMEA (National Marine Electronics Association) sentence format**, which is:
+
+- Compact  
+- Encoded  
+- Difficult to interpret directly  
 
 Example:
+
 ```
 
 $GPGGA,123519,4807.038,N,01131.000,E,...
 
 ```
 
+To make this data useful, it must be:
+1. Parsed  
+2. Interpreted  
+3. Converted into readable format  
+
 ---
 
-## ⚙️ Features
+## ⚙️ Features Implemented
 
-- Accept NMEA sentence input  
-- Parse GPGGA & GPRMC sentences  
+- Accept raw NMEA sentence input  
+- Support for:
+  - GPGGA (Global Positioning System Fix Data)  
+  - GPRMC (Recommended Minimum Data)  
 - Extract:
   - Latitude  
   - Longitude  
   - Time  
   - Satellites  
-- Convert coordinates to decimal format  
+  - Speed (if applicable)  
+- Convert coordinates into decimal format  
 - Display structured output  
 - 📍 Generate Google Maps link  
+- Optional UI for interaction  
 
 ---
 
@@ -327,11 +341,12 @@ nmea-decoder/
 │   ├── gprmc_parser.py
 │
 ├── utils/
-│   ├── validator.py
-│   ├── formatter.py
+│   ├── convert.py
 │
 ├── ui/
-│   └── cli_interface.py
+│   ├── src/
+│   ├── App.jsx
+│   ├── main.jsx
 │
 ├── main.py
 
@@ -343,33 +358,98 @@ nmea-decoder/
 
 ```
 
-User Input
+User Input (NMEA sentence)
 ↓
-Validation
+Validation (format & type)
 ↓
-Parsing
+Parser selection (GPGGA / GPRMC)
 ↓
-Conversion
+Field extraction
 ↓
-Formatted Output + Google Maps Link
+Coordinate conversion
+↓
+Formatted output
+↓
+Google Maps link generation
 
 ```
 
 ---
 
-## 🔢 Example Conversion
+## 🧠 Processing Logic (Detailed)
 
+### Step 1: Input Handling
+- Accept raw NMEA sentence from user
+- Example:
 ```
 
-4807.038 → 48 + (7.038 / 60) = 48.1173
+$GPGGA,123519,4807.038,N,01131.000,E,...
 
 ```
 
 ---
 
-## 📍 Google Maps Integration
+### Step 2: Sentence Identification
+- Extract sentence type:
+  - `GPGGA` → Fix data  
+  - `GPRMC` → Navigation data  
 
-Generated link format:
+---
+
+### Step 3: Parsing
+
+Split sentence using commas:
+
+```
+
+sentence.split(",")
+
+```
+
+Map indices to meaning:
+- Latitude
+- Longitude
+- Time
+- Satellites
+
+---
+
+### Step 4: Coordinate Conversion
+
+NMEA format:
+```
+
+4807.038 → 48° 07.038'
+
+```
+
+Converted to decimal:
+```
+
+48 + (7.038 / 60) = 48.1173
+
+```
+
+---
+
+### Step 5: Output Formatting
+
+Convert parsed data into readable format:
+
+```
+
+Latitude: 48.1173 N
+Longitude: 11.5167 E
+Satellites: 8
+
+```
+
+---
+
+### Step 6: Google Maps Integration
+
+Generate URL:
+
 ```
 
 [https://maps.google.com/?q=latitude,longitude](https://maps.google.com/?q=latitude,longitude)
@@ -377,6 +457,7 @@ Generated link format:
 ```
 
 Example:
+
 ```
 
 [https://maps.google.com/?q=48.1173,11.5167](https://maps.google.com/?q=48.1173,11.5167)
@@ -388,11 +469,21 @@ Example:
 ## 🛠️ Tech Stack
 
 - Python 3  
-- Tabulate  
+- Custom parsing logic  
+- Optional React UI (Vite)  
 
 ---
 
-## ▶️ How to Run
+## ⚙️ Installation & Setup
+
+### Prerequisites
+
+- Python 3.x installed  
+- Node.js (for UI, if used)  
+
+---
+
+### Run Backend (Decoder)
 
 ```
 
@@ -403,75 +494,65 @@ python main.py
 
 ---
 
-# 🔄 Combined Learning
+### Run UI (Optional)
 
-| Skill | Implementation |
-|------|--------------|
-| API Integration | Weather App |
-| UI Development | React |
-| Data Parsing | NMEA Decoder |
-| Data Conversion | Coordinate transformation |
-| Visualization | Charts |
+```
+
+cd nmea-decoder/ui
+npm install
+npm run dev
+
+```
 
 ---
 
-# 🤖 AI Tools Used
+## ❌ Error Handling
+
+- Invalid sentence format detection  
+- Unsupported sentence types handled  
+- Missing fields handled safely  
+
+---
+
+## 🤖 AI Tools Used
 
 - ChatGPT:
-  - Architecture design  
-  - Debugging  
-  - Code guidance  
+  - Understanding NMEA format  
+  - Designing parsing logic  
+  - Debugging implementation  
 
 ---
 
 ## ✍️ Manual Improvements
 
-- Structured code into modular architecture  
-- Improved readability  
-- Added validation and error handling  
-- Designed scalable project structure  
+- Designed modular parser structure  
+- Implemented reusable conversion utilities  
+- Added Google Maps integration  
+- Structured project into parser, utils, and UI layers  
+- Improved readability and scalability  
 
 ---
 
-# 🧾 AI Prompts Used
+## 🧾 AI Prompts Used
 
 Examples:
-- “Design weather app architecture using React”  
-- “Explain NMEA parsing with example”  
-- “Fix JSX error in Vite”  
+
+- “Explain NMEA sentence parsing with example”  
 - “Convert GPS coordinates to decimal format”  
+- “How to extract latitude and longitude from GPGGA”  
+- “Design modular parser in Python”  
 
 ---
 
-# 📁 Root Structure
+## 🚀 Key Highlights
 
+- Works with real-world GPS data format  
+- Demonstrates low-level data parsing  
+- Converts encoded data into usable format  
+- Includes coordinate transformation logic  
+- Integrates with Google Maps  
+
+---
 ```
 
-WHEATHER-APP/
-│
-├── weather-app/
-├── nmea-decoder/
-├── README.md
-
-```
-
 ---
-
-# 🚀 Future Enhancements
-
-- Integrate NMEA decoder with web UI  
-- Add GPS visualization on map  
-- Add weather forecast  
-- Improve UI/UX  
-
----
-
-# 🧠 Key Takeaways
-
-- Built both UI-based and system-level utilities  
-- Demonstrated handling of real-world data formats  
-- Designed scalable architecture  
-- Used AI tools effectively with manual refinement  
-
----
-
