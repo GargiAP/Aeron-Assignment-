@@ -1,14 +1,6 @@
-Got you — here’s your **FINAL CLEAN README (fully formatted, copy-paste ready, no extras)** 👇
-
-Just copy everything below into your `README.md` ✅
-
----
-
-```markdown
 # 🚀 Aeron Systems Assignment  
 ## Weather Data Viewer & NMEA Decoder
 
----
 
 # 🧠 Overview
 
