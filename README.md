@@ -611,9 +611,7 @@ Satellites: 8
 https://maps.google.com/?q=48.1173,11.5167
 
 
----
-
-##These examples allow quick testing without needing real GPS devices.
+These examples allow quick testing without needing real GPS devices.
 ---
 
 ### AI Chat Documentation
