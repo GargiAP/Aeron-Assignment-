@@ -1,13 +1,13 @@
-# 🚀 Aeron Systems Assignment  
+# Aeron Assignment  
 ## Weather Data Viewer & NMEA Decoder
 
 
-# 🧠 Overview
+# Overview
 
 This project consists of two independent utilities designed to demonstrate **end-to-end data handling**, from real-time API-based applications to low-level data parsing systems:
 
-- 🌦️ **Weather Data Viewer (Web Utility)** – Built using React (Vite)
-- 📡 **NMEA Decoder (Data Utility)** – Built using Python
+- **Weather Data Viewer (Web Utility)** – Built using React (Vite)
+- **NMEA Decoder (Data Utility)** – Built using Python
 
 The project showcases the ability to:
 - Work with external APIs  
@@ -37,7 +37,7 @@ This project addresses both:
 
 ---
 
-# 🏗️ System Design
+# System Design
 
 Both utilities follow a modular architecture:
 
@@ -54,11 +54,11 @@ This ensures:
 
 ---
 
-# 🌦️ Weather Data Viewer
+# Weather Data Viewer
 
 ---
 
-## 🎯 Objective
+## Objective
 
 The goal of this module is to build a user-facing web application that fetches and visualizes real-time weather data for any city.
 
@@ -70,7 +70,7 @@ The system is designed to:
 
 ---
 
-## 🧠 Problem Understanding
+## Problem Understanding
 
 Weather data APIs do not always accept city names directly for detailed forecasts. Instead, they require latitude and longitude.
 
@@ -81,7 +81,7 @@ To solve this, the application follows a **two-step data retrieval process**:
 
 ---
 
-## 🔌 APIs Used
+## APIs Used
 
 ### 1. Geocoding API
 
@@ -107,20 +107,20 @@ Used to fetch weather details using coordinates.
 
 ---
 
-## ⚙️ Features Implemented
+## Features Implemented
 
-- 🔍 Search weather by city name  
-- 🌡️ Temperature display  
-- 💧 Humidity display  
-- 🌬️ Wind speed display  
-- 🌅 Sunrise & Sunset information  
-- 📊 Weather charts (temperature trends)  
-- 📅 Forecast strip for upcoming hours/days  
-- ❌ Input validation and error handling  
+- Search weather by city name  
+- Temperature display  
+- Humidity display  
+- Wind speed display  
+- Sunrise & Sunset information  
+- Weather charts (temperature trends)  
+- Forecast strip for upcoming hours/days  
+- Input validation and error handling  
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 
@@ -146,7 +146,7 @@ weather-app/
 
 ---
 
-## 🧠 Data Flow
+## Data Flow
 
 ```
 
@@ -166,7 +166,7 @@ Displayed using UI components
 
 ---
 
-## 🧠 Processing Logic
+## Processing Logic
 
 ### Step 1: Geocoding
 - Input: City name
@@ -188,7 +188,7 @@ Displayed using UI components
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - React (Vite)
 - Axios (API calls)
@@ -197,7 +197,7 @@ Displayed using UI components
 
 ---
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 
@@ -226,7 +226,7 @@ http://localhost:5173
 
 ---
 
-## ❌ Error Handling
+## Error Handling
 
 * Invalid city names handled gracefully
 * API failures managed with fallback UI
@@ -234,7 +234,7 @@ http://localhost:5173
 
 ---
 
-## 🤖 AI Tools Used
+## AI Tools Used
 
 * ChatGPT:
 
@@ -245,7 +245,7 @@ http://localhost:5173
 
 ---
 
-## ✍️ Manual Improvements
+## Manual Improvements
 
 * Designed modular component structure
 * Implemented multi-step API flow (geocoding + weather)
@@ -255,19 +255,15 @@ http://localhost:5173
 
 ---
 
-## 🧾 AI Prompts Used
+# Libraries Used
 
-Examples:
+## Weather App
+- react (Vite)
+- axios
+- chart.js
+- react-chartjs-2
 
-* “Build weather app using Open-Meteo API with React”
-* “How to convert city name to latitude longitude”
-* “Create chart visualization using Chart.js”
-* “Fix Vite JSX parsing error”
-* “Design modular React component structure”
-
----
-
-## 🚀 Key Highlights
+## Key Highlights
 
 * Uses **real-world API chaining (Geocoding + Weather)**
 * Modular React architecture
@@ -275,9 +271,20 @@ Examples:
 * Clean separation of concerns (components, services, utils)
 * Production-style structure
 
+# 📸 Screenshots
+
+### Dashboard View
+<img width="1866" height="863" alt="image" src="https://github.com/user-attachments/assets/fa9eeca9-db64-45fd-a801-f60c7022a16a" />
+
+### Charts View
+<img width="1835" height="868" alt="image" src="https://github.com/user-attachments/assets/3017e476-49e0-4ac1-b0e0-ed7bddeeb987" />
+<img width="1871" height="871" alt="image" src="https://github.com/user-attachments/assets/30ac29ec-ddb6-4f37-9055-8b219fdc9211" />
+
 ---
 
-# 📡 NMEA Decoder
+---
+
+# NMEA Decoder
 
 ---
 
