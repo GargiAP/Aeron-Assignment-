@@ -612,13 +612,7 @@ https://maps.google.com/?q=48.1173,11.5167
 
 
 These examples allow quick testing without needing real GPS devices.
----
 
-### AI Chat Documentation
-
-The complete AI interaction history used during development is available here:
-
-https://drive.google.com/file/d/1C-yYfbE-irPCEIk15NuJnL-TzL9stE1_/view?usp=sharing
 
 ---
 ### Video - Submission
